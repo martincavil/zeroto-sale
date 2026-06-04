@@ -1,4 +1,10 @@
+import type { Metadata } from "next"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Pricing — zeroto.sale",
+  description: "Start free. Go Pro for $9/mo or own it forever for $89.",
+}
 import { PixelCharacter } from "@/components/pixel/PixelCharacter"
 
 export default function PricingPage() {

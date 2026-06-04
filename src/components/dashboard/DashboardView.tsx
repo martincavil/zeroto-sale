@@ -4,7 +4,9 @@ import { useState, useOptimistic, useTransition } from "react"
 import { PixelCharacter } from "@/components/pixel/PixelCharacter"
 import { XPBar } from "@/components/ui/XPBar"
 import { StepCard } from "@/components/dashboard/StepCard"
-import { STEPS } from "@/lib/steps"
+import { LevelUpToast } from "@/components/ui/LevelUpToast"
+import { FirstSaleCelebration } from "@/components/ui/FirstSaleCelebration"
+import { ACT1_STEPS, ACT2_STEPS } from "@/lib/steps"
 import { completeStep, toggleTask } from "@/app/dashboard/actions"
 import type { Database } from "@/types/database"
 
@@ -14,12 +16,17 @@ type Profile = Database["public"]["Tables"]["profiles"]["Row"] | null
 interface DashboardViewProps {
   project: Project
   profile: Profile
+  initialTaskCompletions: string[]
 }
 
 const XP_PER_LEVEL = 200
 
-export function DashboardView({ project, profile }: DashboardViewProps) {
+export function DashboardView({ project, profile, initialTaskCompletions }: DashboardViewProps) {
   const [, startTransition] = useTransition()
+  const [completedTasks, setCompletedTasks] = useState<string[]>(initialTaskCompletions)
+  const [showLevelUp, setShowLevelUp] = useState(false)
+  const [newLevel, setNewLevel] = useState(1)
+  const [showFirstSale, setShowFirstSale] = useState(false)
 
   const [optimisticProject, updateProject] = useOptimistic(
     project,
@@ -30,8 +37,6 @@ export function DashboardView({ project, profile }: DashboardViewProps) {
     profile?.xp ?? 0,
     (state, xp: number) => state + xp
   )
-
-  const [completedTasks, setCompletedTasks] = useState<string[]>([])
 
   const level = profile?.current_level ?? 1
   const xp = optimisticXP
@@ -45,6 +50,18 @@ export function DashboardView({ project, profile }: DashboardViewProps) {
 
   function handleStepComplete(stepId: number, xpReward: number) {
     const newCompleted = [...optimisticProject.completed_steps, stepId]
+    const newXP = xp + xpReward
+    const nextLevel = Math.floor(newXP / XP_PER_LEVEL) + 1
+
+    if (nextLevel > level) {
+      setNewLevel(nextLevel)
+      setShowLevelUp(true)
+    }
+
+    if (stepId === 7) {
+      setShowFirstSale(true)
+    }
+
     startTransition(() => {
       updateProject({ completed_steps: newCompleted, current_step: stepId + 1 })
       updateXP(xpReward)
@@ -52,29 +69,31 @@ export function DashboardView({ project, profile }: DashboardViewProps) {
     })
   }
 
-  const act1Steps = STEPS.filter((s) => s.act === 1)
+  const act2Unlocked = optimisticProject.completed_steps.includes(7)
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Overlays */}
+      {showLevelUp && !showFirstSale && (
+        <LevelUpToast level={newLevel} onDone={() => setShowLevelUp(false)} />
+      )}
+      {showFirstSale && (
+        <FirstSaleCelebration onDone={() => setShowFirstSale(false)} />
+      )}
+
       {/* Top bar */}
       <header className="border-b border-[#1e1e2e] bg-[#12121a] px-4 py-3 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto flex items-center justify-between gap-4">
           <span className="font-pixel text-xs text-[#7c3aed]">zeroto.sale</span>
-
           <div className="flex items-center gap-3 flex-1 max-w-xs">
             <PixelCharacter level={level} size="sm" />
             <div className="flex-1">
-              <XPBar
-                current={xp % XP_PER_LEVEL}
-                max={XP_PER_LEVEL}
-                label={`LVL ${level}`}
-              />
+              <XPBar current={xp % XP_PER_LEVEL} max={XP_PER_LEVEL} label={`LVL ${level}`} />
             </div>
           </div>
-
-          <span className="font-mono text-xs text-[#6b6b8a] hidden sm:block">
+          <a href="/account" className="font-mono text-xs text-[#6b6b8a] hover:text-[#a0a0b8] hidden sm:block">
             {profile?.plan ?? "free"}
-          </span>
+          </a>
         </div>
       </header>
 
@@ -93,11 +112,11 @@ export function DashboardView({ project, profile }: DashboardViewProps) {
             <span className="font-pixel text-lg text-[#7c3aed]">
               {optimisticProject.completed_steps.length}
             </span>
-            <p className="font-pixel text-[8px] text-[#6b6b8a] mt-1">STEPS DONE</p>
+            <p className="font-pixel text-[8px] text-[#6b6b8a] mt-1">STEPS</p>
           </div>
           <div className="flex-1 pixel-border bg-[#12121a] p-3 text-center">
             <span className="font-pixel text-lg text-[#fbbf24]">{xp}</span>
-            <p className="font-pixel text-[8px] text-[#6b6b8a] mt-1">TOTAL XP</p>
+            <p className="font-pixel text-[8px] text-[#6b6b8a] mt-1">XP</p>
           </div>
           <div className="flex-1 pixel-border bg-[#12121a] p-3 text-center">
             <span className="font-pixel text-lg text-[#06b6d4]">{level}</span>
@@ -105,12 +124,12 @@ export function DashboardView({ project, profile }: DashboardViewProps) {
           </div>
         </div>
 
-        {/* Act 1 steps */}
+        {/* Act 1 */}
         <div className="flex flex-col gap-3">
           <span className="font-pixel text-[8px] text-[#6b6b8a]">
             ACT I — IDEA TO FIRST SALE
           </span>
-          {act1Steps.map((step) => (
+          {ACT1_STEPS.map((step) => (
             <StepCard
               key={step.id}
               step={step}
@@ -124,6 +143,47 @@ export function DashboardView({ project, profile }: DashboardViewProps) {
             />
           ))}
         </div>
+
+        {/* Act 2 */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-center justify-between">
+            <span className="font-pixel text-[8px] text-[#6b6b8a]">
+              ACT II — FIRST SALE TO $10K MRR
+            </span>
+            {!act2Unlocked && (
+              <span className="font-pixel text-[8px] text-[#6b6b8a]">🔒 LOCKED</span>
+            )}
+          </div>
+          {ACT2_STEPS.map((step) => (
+            <StepCard
+              key={step.id}
+              step={step}
+              isActive={act2Unlocked && optimisticProject.current_step === step.id}
+              isCompleted={optimisticProject.completed_steps.includes(step.id)}
+              isLocked={!act2Unlocked || step.id > optimisticProject.current_step}
+              projectId={project.id}
+              completedTasks={completedTasks}
+              onTaskToggle={handleTaskToggle}
+              onStepComplete={() => handleStepComplete(step.id, step.xpReward)}
+            />
+          ))}
+        </div>
+
+        {/* Upgrade CTA for free users */}
+        {profile?.plan === "free" && (
+          <div className="pixel-border-primary bg-[#12121a] p-6 flex flex-col gap-4 text-center">
+            <span className="font-pixel text-[8px] text-[#7c3aed]">UNLOCK EVERYTHING</span>
+            <p className="font-mono text-xs text-[#a0a0b8]">
+              Get unlimited AI generations and access to all 14 levels.
+            </p>
+            <a
+              href="/pricing"
+              className="font-pixel text-[10px] px-4 py-3 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
+            >
+              GO PRO — $9/MO →
+            </a>
+          </div>
+        )}
       </main>
     </div>
   )

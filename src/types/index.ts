@@ -1,5 +1,11 @@
 export type { Database } from "./database"
 
+export interface Affiliate {
+  label: string
+  url: string
+  note?: string
+}
+
 export interface Step {
   id: number
   title: string
@@ -8,6 +14,7 @@ export interface Step {
   aiOutput: string
   xpReward: number
   act: 1 | 2
+  affiliates: Affiliate[]
 }
 
 export interface Task {
