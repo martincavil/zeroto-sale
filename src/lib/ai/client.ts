@@ -18,8 +18,8 @@ export function getGroq() {
 export const GEMINI_MODEL = "gemini-2.0-flash"
 export const GROQ_MODEL = "llama-3.3-70b-versatile"
 
-// Step 5 is technical — use Groq (fast + good at code/schemas)
-// All other steps are creative — use Gemini (best quality for writing)
-export function getProviderForStep(step: number): "gemini" | "groq" {
-  return step === 5 ? "groq" : "gemini"
+// Groq handles all steps — generous free tier (14k req/day)
+// Gemini kept as future upgrade when billing is enabled
+export function getProviderForStep(_step: number): "gemini" | "groq" {
+  return "groq"
 }
