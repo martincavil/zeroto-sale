@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { PixelCharacter } from "@/components/pixel/PixelCharacter"
-import { XPBar } from "@/components/ui/XPBar"
+import { LandingHero } from "@/components/landing/LandingHero"
+import { FlipCard } from "@/components/landing/FlipCard"
 
 export default function LandingPage() {
   return (
@@ -15,9 +15,9 @@ export default function LandingPage() {
         }}
       />
 
-      <div className="relative z-10 max-w-2xl w-full flex flex-col items-center gap-8 text-center">
+      <div className="relative z-10 max-w-2xl w-full flex flex-col items-center gap-6 text-center">
         {/* Logo */}
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-2">
           <span className="font-pixel text-[11px] text-[#6b6b8a] tracking-widest uppercase">
             level 0
           </span>
@@ -29,11 +29,8 @@ export default function LandingPage() {
           </p>
         </div>
 
-        {/* Character + XP */}
-        <div className="flex flex-col items-center gap-3 w-48">
-          <PixelCharacter level={0} animated />
-          <XPBar current={0} max={100} label="XP" />
-        </div>
+        {/* Animated hero */}
+        <LandingHero />
 
         {/* CTA */}
         <div className="flex flex-col items-center gap-3 w-full max-w-xs">
@@ -51,20 +48,10 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        {/* Steps preview */}
-        <div className="w-full grid grid-cols-4 gap-2 text-left">
+        {/* Flip cards */}
+        <div className="w-full grid grid-cols-4 gap-2">
           {PREVIEW_STEPS.map((step) => (
-            <div
-              key={step.id}
-              className="pixel-border bg-[#12121a] p-3 flex flex-col gap-2"
-            >
-              <span className="font-pixel text-[10px] text-[#6b6b8a]">
-                LVL {step.id}
-              </span>
-              <span className="font-mono text-xs text-[#a0a0b8] leading-tight">
-                {step.title}
-              </span>
-            </div>
+            <FlipCard key={step.id} id={step.id} title={step.title} motivation={step.motivation} />
           ))}
         </div>
 
@@ -76,13 +63,14 @@ export default function LandingPage() {
   )
 }
 
+
 const PREVIEW_STEPS = [
-  { id: 1, title: "Crystallize your idea" },
-  { id: 2, title: "Validate before coding" },
-  { id: 3, title: "Landing page live" },
-  { id: 4, title: "100 real visitors" },
-  { id: 5, title: "Build your MVP" },
-  { id: 6, title: "Convert waitlist" },
-  { id: 7, title: "🎉 First sale" },
-  { id: 8, title: "$10k MRR 👑" },
+  { id: 1, title: "Crystallize your idea",    motivation: "Clarity beats cleverness. Start here." },
+  { id: 2, title: "Validate before coding",   motivation: "Talk to 10 people before writing 1 line." },
+  { id: 3, title: "Landing page live",         motivation: "A URL is worth 1000 ideas." },
+  { id: 4, title: "100 real visitors",         motivation: "Real traffic = real signal." },
+  { id: 5, title: "Build your MVP",            motivation: "Ship the smallest thing that proves value." },
+  { id: 6, title: "Convert waitlist",          motivation: "Your list is money waiting to be unlocked." },
+  { id: 7, title: "🎉 First sale",             motivation: "One payment changes everything." },
+  { id: 8, title: "$10k MRR 👑",              motivation: "Most quit at $0. You won't." },
 ]

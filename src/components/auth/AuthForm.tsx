@@ -11,6 +11,18 @@ interface AuthFormProps {
   redirectPlan?: string
 }
 
+const SOCIAL_PROOF = [
+  "No credit card required to start",
+  "Takes 2 minutes to set up",
+  "Your first sale is closer than you think",
+]
+
+const TRUST_BADGES = [
+  { icon: "🔒", label: "Secure auth" },
+  { icon: "⚡", label: "Instant access" },
+  { icon: "🎮", label: "Gamified progress" },
+]
+
 export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
   const router = useRouter()
   const [email, setEmail] = useState("")
@@ -30,7 +42,6 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
       if (error) {
         setError(error.message)
       } else if (redirectPlan) {
-        // Came from pricing — go straight to checkout
         const res = await fetch("/api/stripe/checkout", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -55,76 +66,151 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4">
-      <div className="w-full max-w-sm flex flex-col items-center gap-8">
-        <div className="flex flex-col items-center gap-3">
-          <PixelCharacter level={0} animated size="md" />
-          <h1 className="font-pixel text-sm text-[#e8e8f0]">
-            {mode === "login" ? "WELCOME BACK" : "START HERE"}
-          </h1>
-          <p className="font-mono text-sm text-[#6b6b8a]">
-            {mode === "login"
-              ? "Continue your journey"
-              : "Your first sale awaits"}
+    <main className="min-h-screen flex flex-col md:flex-row">
+
+      {/* Left panel — only on signup */}
+      {mode === "signup" && (
+        <div className="hidden md:flex flex-col justify-center gap-10 w-96 shrink-0 bg-[#12121a] border-r border-[#1e1e2e] px-10 py-16 relative overflow-hidden">
+          {/* Grid bg */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{
+            backgroundImage: "linear-gradient(#7c3aed 1px, transparent 1px), linear-gradient(90deg, #7c3aed 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }} />
+
+          <div className="relative flex flex-col gap-8">
+            <div className="flex flex-col gap-3">
+              <span className="font-pixel text-[11px] text-[#6b6b8a]">zeroto.sale</span>
+              <h2 className="font-pixel text-base text-[#e8e8f0] leading-loose">
+                Your first sale<br />
+                <span className="text-[#7c3aed]">starts here.</span>
+              </h2>
+              <p className="font-mono text-sm text-[#6b6b8a]">
+                A gamified roadmap from idea to first paying customer — powered by AI.
+              </p>
+            </div>
+
+            {/* Steps preview */}
+            <div className="flex flex-col gap-2">
+              {[
+                { n: 1, t: "Crystallize your idea" },
+                { n: 2, t: "Validate before coding" },
+                { n: 3, t: "Landing page live" },
+                { n: 7, t: "🎉 First sale" },
+              ].map((s) => (
+                <div key={s.n} className="flex items-center gap-3">
+                  <span className="font-pixel text-[10px] text-[#7c3aed] w-8">L{s.n}</span>
+                  <span className="font-mono text-sm text-[#a0a0b8]">{s.t}</span>
+                </div>
+              ))}
+              <span className="font-mono text-sm text-[#6b6b8a] ml-11">+ 10 more levels...</span>
+            </div>
+
+            {/* Character */}
+            <div className="flex items-center gap-4">
+              <PixelCharacter level={7} animated size="lg" />
+              <div className="flex flex-col gap-1">
+                <span className="font-pixel text-[10px] text-[#fbbf24]">🎉 FIRST SALE</span>
+                <span className="font-mono text-sm text-[#6b6b8a]">That could be you.</span>
+              </div>
+            </div>
+
+            {/* Social proof */}
+            <div className="flex flex-col gap-2 border-t border-[#1e1e2e] pt-6">
+              {SOCIAL_PROOF.map((s) => (
+                <div key={s} className="flex items-center gap-2">
+                  <span className="text-[#10b981] text-sm">✓</span>
+                  <span className="font-mono text-sm text-[#6b6b8a]">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Right panel — form */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-12">
+        <div className="w-full max-w-sm flex flex-col gap-8">
+
+          {/* Header */}
+          <div className="flex flex-col items-center gap-3 text-center">
+            <PixelCharacter level={0} animated size="md" />
+            <h1 className="font-pixel text-base text-[#e8e8f0]">
+              {mode === "login" ? "WELCOME BACK" : "CREATE YOUR ACCOUNT"}
+            </h1>
+            <p className="font-mono text-sm text-[#6b6b8a]">
+              {mode === "login"
+                ? "Continue your journey to first sale"
+                : "Free to start. No credit card needed."}
+            </p>
+          </div>
+
+          {/* Form */}
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <label className="font-pixel text-[11px] text-[#6b6b8a]">EMAIL</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-4 py-4 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors placeholder:text-[#3a3a5c]"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="font-pixel text-[11px] text-[#6b6b8a]">PASSWORD</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={6}
+                className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-4 py-4 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors placeholder:text-[#3a3a5c]"
+                placeholder="min. 6 characters"
+              />
+            </div>
+
+            {error && (
+              <div className="border-2 border-[#ef4444] bg-[#ef444411] px-4 py-3">
+                <p className="font-mono text-sm text-[#ef4444]">{error}</p>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary mt-2"
+            >
+              {loading ? "..." : mode === "login" ? "LOG IN →" : "CREATE ACCOUNT →"}
+            </button>
+          </form>
+
+          {/* Trust badges */}
+          {mode === "signup" && (
+            <div className="flex justify-center gap-6">
+              {TRUST_BADGES.map((b) => (
+                <div key={b.label} className="flex flex-col items-center gap-1">
+                  <span className="text-lg">{b.icon}</span>
+                  <span className="font-pixel text-[9px] text-[#6b6b8a]">{b.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Switch mode */}
+          <p className="font-mono text-sm text-[#6b6b8a] text-center">
+            {mode === "login" ? (
+              <>No account?{" "}
+                <Link href="/signup" className="text-[#7c3aed] hover:underline">Sign up free</Link>
+              </>
+            ) : (
+              <>Already have one?{" "}
+                <Link href="/login" className="text-[#7c3aed] hover:underline">Log in</Link>
+              </>
+            )}
           </p>
         </div>
-
-        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <label className="font-pixel text-[11px] text-[#6b6b8a]">EMAIL</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-4 py-4 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <label className="font-pixel text-[11px] text-[#6b6b8a]">PASSWORD</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-4 py-4 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors"
-              placeholder="••••••••"
-            />
-          </div>
-
-          {error && (
-            <p className="font-mono text-sm text-[#ef4444]">{error}</p>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary"
-          >
-            {loading ? "..." : mode === "login" ? "LOG IN →" : "CREATE ACCOUNT →"}
-          </button>
-        </form>
-
-        <p className="font-mono text-sm text-[#6b6b8a]">
-          {mode === "login" ? (
-            <>
-              No account?{" "}
-              <Link href="/signup" className="text-[#7c3aed] hover:underline">
-                Sign up
-              </Link>
-            </>
-          ) : (
-            <>
-              Already have one?{" "}
-              <Link href="/login" className="text-[#7c3aed] hover:underline">
-                Log in
-              </Link>
-            </>
-          )}
-        </p>
       </div>
     </main>
   )
