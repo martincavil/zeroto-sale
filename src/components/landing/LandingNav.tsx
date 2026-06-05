@@ -6,29 +6,35 @@ interface LandingNavProps {
 
 export function LandingNav({ isLoggedIn }: LandingNavProps) {
   return (
-    <nav className="border-b border-[#1e1e2e] px-8 py-5 flex items-center justify-between relative z-10">
-      <Link href="/" className="font-pixel text-lg text-[#e8e8f0]">
-        zeroto<span className="text-[#7c3aed]">.sale</span>
-      </Link>
-      <div className="flex items-center gap-8">
-        <Link href="/pricing" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0] transition-colors hidden sm:block">
-          Pricing
+    <div className="sticky top-4 z-50 px-4 pointer-events-none">
+      <nav
+        className="pointer-events-auto mx-auto max-w-4xl flex items-center justify-between px-6 py-3 rounded-2xl border border-[#ffffff0f] bg-[#0a0a0fcc] backdrop-blur-md"
+        style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)" }}
+      >
+        <Link href="/" className="font-pixel text-base text-[#e8e8f0]">
+          zeroto<span className="text-[#7c3aed]">.sale</span>
         </Link>
-        {isLoggedIn ? (
-          <Link href="/dashboard" className="font-pixel text-sm px-5 py-3 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary">
-            My dashboard →
+
+        <div className="flex items-center gap-6">
+          <Link href="/pricing" className="font-mono text-sm text-[#8b8ba8] hover:text-[#e8e8f0] transition-colors hidden sm:block">
+            Pricing
           </Link>
-        ) : (
-          <>
-            <Link href="/login" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0] transition-colors">
-              Log in
+          {isLoggedIn ? (
+            <Link href="/dashboard" className="font-pixel text-[13px] px-4 py-2 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary rounded-lg">
+              Dashboard →
             </Link>
-            <Link href="/signup" className="font-pixel text-sm px-5 py-3 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary">
-              Start free →
-            </Link>
-          </>
-        )}
-      </div>
-    </nav>
+          ) : (
+            <>
+              <Link href="/login" className="font-mono text-sm text-[#8b8ba8] hover:text-[#e8e8f0] transition-colors">
+                Log in
+              </Link>
+              <Link href="/signup" className="font-pixel text-[13px] px-4 py-2 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary rounded-lg">
+                Start free →
+              </Link>
+            </>
+          )}
+        </div>
+      </nav>
+    </div>
   )
 }
