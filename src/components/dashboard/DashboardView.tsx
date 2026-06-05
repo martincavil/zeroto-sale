@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useOptimistic, useTransition } from "react"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { PixelCharacter } from "@/components/pixel/PixelCharacter"
 import { XPBar } from "@/components/ui/XPBar"
 import { StepCard } from "@/components/dashboard/StepCard"
@@ -23,54 +24,47 @@ interface DashboardViewProps {
 const XP_PER_LEVEL = 200
 
 export function DashboardView({ project, profile, initialTaskCompletions, savedOutputs }: DashboardViewProps) {
-  const [, startTransition] = useTransition()
+  const router = useRouter()
   const [completedTasks, setCompletedTasks] = useState<string[]>(initialTaskCompletions)
   const [showLevelUp, setShowLevelUp] = useState(false)
   const [newLevel, setNewLevel] = useState(1)
   const [showFirstSale, setShowFirstSale] = useState(false)
 
-  const [optimisticProject, updateProject] = useOptimistic(
-    project,
-    (state, update: Partial<Project>) => ({ ...state, ...update })
-  )
+  // Local state mirrors DB — updated immediately, then synced via router.refresh()
+  const [localProject, setLocalProject] = useState(project)
+  const [localXP, setLocalXP] = useState(profile?.xp ?? 0)
 
-  const [optimisticXP, updateXP] = useOptimistic(
-    profile?.xp ?? 0,
-    (state, xp: number) => state + xp
-  )
-
-  const level = profile?.current_level ?? 1
-  const xp = optimisticXP
+  const level = Math.floor(localXP / XP_PER_LEVEL) + 1
 
   function handleTaskToggle(taskId: string) {
     setCompletedTasks((prev) =>
       prev.includes(taskId) ? prev.filter((id) => id !== taskId) : [...prev, taskId]
     )
-    startTransition(() => toggleTask(project.id, taskId))
+    toggleTask(project.id, taskId)
   }
 
-  function handleStepComplete(stepId: number, xpReward: number) {
-    const newCompleted = [...optimisticProject.completed_steps, stepId]
-    const newXP = xp + xpReward
+  async function handleStepComplete(stepId: number, xpReward: number) {
+    const newCompleted = [...localProject.completed_steps, stepId]
+    const newXP = localXP + xpReward
     const nextLevel = Math.floor(newXP / XP_PER_LEVEL) + 1
+
+    // Update local state immediately
+    setLocalProject((p) => ({ ...p, completed_steps: newCompleted, current_step: stepId + 1 }))
+    setLocalXP(newXP)
 
     if (nextLevel > level) {
       setNewLevel(nextLevel)
       setShowLevelUp(true)
     }
 
-    if (stepId === 7) {
-      setShowFirstSale(true)
-    }
+    if (stepId === 7) setShowFirstSale(true)
 
-    startTransition(() => {
-      updateProject({ completed_steps: newCompleted, current_step: stepId + 1 })
-      updateXP(xpReward)
-      completeStep(project.id, stepId, xpReward)
-    })
+    // Persist + refresh server data in background
+    await completeStep(project.id, stepId, xpReward)
+    router.refresh()
   }
 
-  const act2Unlocked = optimisticProject.completed_steps.includes(7)
+  const act2Unlocked = localProject.completed_steps.includes(7)
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -89,7 +83,7 @@ export function DashboardView({ project, profile, initialTaskCompletions, savedO
           <div className="flex items-center gap-3 flex-1 max-w-xs">
             <PixelCharacter level={level} size="sm" />
             <div className="flex-1">
-              <XPBar current={xp % XP_PER_LEVEL} max={XP_PER_LEVEL} label={`LVL ${level}`} />
+              <XPBar current={localXP % XP_PER_LEVEL} max={XP_PER_LEVEL} label={`LVL ${level}`} />
             </div>
           </div>
           <a href="/account" className="font-mono text-sm text-[#8b8ba8] hover:text-[#c4c4d4] hidden sm:block">
@@ -103,20 +97,20 @@ export function DashboardView({ project, profile, initialTaskCompletions, savedO
         {/* Project context */}
         <div className="pixel-border bg-[#12121a] p-5 flex flex-col gap-2">
           <span className="font-pixel text-[13px] text-[#8b8ba8]">YOUR SAAS</span>
-          <p className="font-mono text-sm text-[#e8e8f0]">{optimisticProject.problem}</p>
-          <p className="font-mono text-sm text-[#8b8ba8]">→ {optimisticProject.target}</p>
+          <p className="font-mono text-sm text-[#e8e8f0]">{localProject.problem}</p>
+          <p className="font-mono text-sm text-[#8b8ba8]">→ {localProject.target}</p>
         </div>
 
         {/* Progress summary */}
         <div className="flex gap-3">
           <div className="flex-1 pixel-border bg-[#12121a] p-5 text-center">
             <span className="font-pixel text-lg text-[#7c3aed]">
-              {optimisticProject.completed_steps.length}
+              {localProject.completed_steps.length}
             </span>
             <p className="font-pixel text-[13px] text-[#8b8ba8] mt-1">STEPS</p>
           </div>
           <div className="flex-1 pixel-border bg-[#12121a] p-5 text-center">
-            <span className="font-pixel text-lg text-[#fbbf24]">{xp}</span>
+            <span className="font-pixel text-lg text-[#fbbf24]">{localXP}</span>
             <p className="font-pixel text-[13px] text-[#8b8ba8] mt-1">XP</p>
           </div>
           <div className="flex-1 pixel-border bg-[#12121a] p-5 text-center">
@@ -134,9 +128,9 @@ export function DashboardView({ project, profile, initialTaskCompletions, savedO
             <StepCard
               key={step.id}
               step={step}
-              isActive={optimisticProject.current_step === step.id}
-              isCompleted={optimisticProject.completed_steps.includes(step.id)}
-              isLocked={step.id > optimisticProject.current_step}
+              isActive={localProject.current_step === step.id}
+              isCompleted={localProject.completed_steps.includes(step.id)}
+              isLocked={step.id > localProject.current_step}
               projectId={project.id}
               completedTasks={completedTasks}
               savedOutput={savedOutputs[step.id]}
@@ -160,9 +154,9 @@ export function DashboardView({ project, profile, initialTaskCompletions, savedO
             <StepCard
               key={step.id}
               step={step}
-              isActive={act2Unlocked && optimisticProject.current_step === step.id}
-              isCompleted={optimisticProject.completed_steps.includes(step.id)}
-              isLocked={!act2Unlocked || step.id > optimisticProject.current_step}
+              isActive={act2Unlocked && localProject.current_step === step.id}
+              isCompleted={localProject.completed_steps.includes(step.id)}
+              isLocked={!act2Unlocked || step.id > localProject.current_step}
               projectId={project.id}
               completedTasks={completedTasks}
               savedOutput={savedOutputs[step.id]}
