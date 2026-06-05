@@ -84,15 +84,15 @@ export function OnboardingForm() {
         </div>
 
         {/* Question */}
-        <div className="pixel-border bg-[#12121a] p-6 flex flex-col gap-6">
+        <div className="pixel-border bg-[#12121a] p-7 flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <span className="font-pixel text-[8px] text-[#6b6b8a]">
+            <span className="font-pixel text-[11px] text-[#6b6b8a]">
               QUESTION {current.id}
             </span>
-            <h2 className="font-pixel text-[10px] text-[#e8e8f0] leading-loose">
+            <h2 className="font-pixel text-[14px] text-[#e8e8f0] leading-loose">
               {current.label}
             </h2>
-            <p className="font-mono text-xs text-[#6b6b8a]">{current.hint}</p>
+            <p className="font-mono text-sm text-[#6b6b8a]">{current.hint}</p>
           </div>
 
           <textarea
@@ -102,7 +102,7 @@ export function OnboardingForm() {
             }
             placeholder={current.placeholder}
             rows={3}
-            className="w-full bg-[#0a0a0f] border-2 border-[#1e1e2e] px-3 py-3 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors resize-none"
+            className="w-full bg-[#0a0a0f] border-2 border-[#1e1e2e] px-4 py-4 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors resize-none"
           />
 
           <button
@@ -111,7 +111,7 @@ export function OnboardingForm() {
               (current.required && !values[current.field as keyof typeof values].trim()) ||
               loading
             }
-            className="w-full font-pixel text-[10px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary"
+            className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary"
           >
             {loading
               ? "SAVING..."
@@ -123,7 +123,7 @@ export function OnboardingForm() {
           {!current.required && (
             <button
               onClick={handleNext}
-              className="font-mono text-xs text-[#6b6b8a] hover:text-[#a0a0b8] transition-colors text-center"
+              className="font-mono text-sm text-[#6b6b8a] hover:text-[#a0a0b8] transition-colors text-center"
             >
               Skip for now
             </button>

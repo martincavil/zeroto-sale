@@ -51,7 +51,7 @@ export function AuthForm({ mode }: AuthFormProps) {
           <h1 className="font-pixel text-sm text-[#e8e8f0]">
             {mode === "login" ? "WELCOME BACK" : "START HERE"}
           </h1>
-          <p className="font-mono text-xs text-[#6b6b8a]">
+          <p className="font-mono text-sm text-[#6b6b8a]">
             {mode === "login"
               ? "Continue your journey"
               : "Your first sale awaits"}
@@ -60,44 +60,44 @@ export function AuthForm({ mode }: AuthFormProps) {
 
         <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
           <div className="flex flex-col gap-1">
-            <label className="font-pixel text-[8px] text-[#6b6b8a]">EMAIL</label>
+            <label className="font-pixel text-[11px] text-[#6b6b8a]">EMAIL</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-3 py-3 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors"
+              className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-4 py-4 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors"
               placeholder="you@example.com"
             />
           </div>
 
           <div className="flex flex-col gap-1">
-            <label className="font-pixel text-[8px] text-[#6b6b8a]">PASSWORD</label>
+            <label className="font-pixel text-[11px] text-[#6b6b8a]">PASSWORD</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
-              className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-3 py-3 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors"
+              className="w-full bg-[#12121a] border-2 border-[#1e1e2e] px-4 py-4 font-mono text-sm text-[#e8e8f0] focus:outline-none focus:border-[#7c3aed] transition-colors"
               placeholder="••••••••"
             />
           </div>
 
           {error && (
-            <p className="font-mono text-xs text-[#ef4444]">{error}</p>
+            <p className="font-mono text-sm text-[#ef4444]">{error}</p>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full font-pixel text-[10px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary"
+            className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary"
           >
             {loading ? "..." : mode === "login" ? "LOG IN →" : "CREATE ACCOUNT →"}
           </button>
         </form>
 
-        <p className="font-mono text-xs text-[#6b6b8a]">
+        <p className="font-mono text-sm text-[#6b6b8a]">
           {mode === "login" ? (
             <>
               No account?{" "}

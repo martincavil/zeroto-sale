@@ -31,7 +31,7 @@ export function LevelUpToast({ level, onDone }: LevelUpToastProps) {
         </div>
 
         <div className="flex flex-col gap-2">
-          <p className="font-pixel text-[10px] text-[#fbbf24] glow-xp animate-blink">
+          <p className="font-pixel text-[14px] text-[#fbbf24] glow-xp animate-blink">
             LEVEL UP!
           </p>
           <p className="font-pixel text-2xl text-[#e8e8f0]">
@@ -51,7 +51,7 @@ export function LevelUpToast({ level, onDone }: LevelUpToastProps) {
 
         <button
           onClick={() => { setVisible(false); setTimeout(onDone, 300) }}
-          className="font-pixel text-[8px] text-[#6b6b8a] hover:text-[#a0a0b8] mt-2"
+          className="font-pixel text-[11px] text-[#6b6b8a] hover:text-[#a0a0b8] mt-2"
         >
           CONTINUE →
         </button>

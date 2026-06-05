@@ -18,7 +18,7 @@ export default function LandingPage() {
       <div className="relative z-10 max-w-2xl w-full flex flex-col items-center gap-12 text-center">
         {/* Logo */}
         <div className="flex flex-col items-center gap-4">
-          <span className="font-pixel text-[10px] text-[#6b6b8a] tracking-widest uppercase">
+          <span className="font-pixel text-[14px] text-[#6b6b8a] tracking-widest uppercase">
             level 0
           </span>
           <h1 className="font-pixel text-2xl md:text-3xl text-[#e8e8f0] leading-tight">
@@ -39,13 +39,13 @@ export default function LandingPage() {
         <div className="flex flex-col items-center gap-4 w-full max-w-xs">
           <Link
             href="/signup"
-            className="w-full font-pixel text-[10px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors text-center pixel-border-primary"
+            className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors text-center pixel-border-primary"
           >
             START YOUR JOURNEY →
           </Link>
           <Link
             href="/login"
-            className="font-mono text-xs text-[#6b6b8a] hover:text-[#a0a0b8] transition-colors"
+            className="font-mono text-sm text-[#6b6b8a] hover:text-[#a0a0b8] transition-colors"
           >
             Already building? Log in
           </Link>
@@ -56,19 +56,19 @@ export default function LandingPage() {
           {PREVIEW_STEPS.map((step) => (
             <div
               key={step.id}
-              className="pixel-border bg-[#12121a] p-3 flex flex-col gap-2"
+              className="pixel-border bg-[#12121a] p-5 flex flex-col gap-2"
             >
-              <span className="font-pixel text-[8px] text-[#6b6b8a]">
+              <span className="font-pixel text-[11px] text-[#6b6b8a]">
                 LVL {step.id}
               </span>
-              <span className="font-mono text-xs text-[#a0a0b8] leading-tight">
+              <span className="font-mono text-sm text-[#a0a0b8] leading-tight">
                 {step.title}
               </span>
             </div>
           ))}
         </div>
 
-        <p className="font-pixel text-[8px] text-[#6b6b8a]">
+        <p className="font-pixel text-[11px] text-[#6b6b8a]">
           $9/mo · $89 lifetime
         </p>
       </div>

@@ -58,7 +58,7 @@ export function FirstSaleCelebration({ onDone }: FirstSaleCelebrationProps) {
         <PixelCharacter level={7} size="lg" animated />
 
         <div className="flex flex-col gap-4">
-          <p className="font-pixel text-[10px] text-[#fbbf24] glow-xp">
+          <p className="font-pixel text-[14px] text-[#fbbf24] glow-xp">
             🎉 FIRST SALE
           </p>
           <h1 className="font-pixel text-3xl text-[#e8e8f0] leading-tight">
@@ -70,16 +70,16 @@ export function FirstSaleCelebration({ onDone }: FirstSaleCelebrationProps) {
           </p>
         </div>
 
-        <div className="pixel-border-primary bg-[#12121a] p-4 flex flex-col gap-2">
-          <p className="font-pixel text-[8px] text-[#7c3aed]">ACT 2 UNLOCKED</p>
-          <p className="font-mono text-xs text-[#a0a0b8]">
+        <div className="pixel-border-primary bg-[#12121a] p-5 flex flex-col gap-2">
+          <p className="font-pixel text-[11px] text-[#7c3aed]">ACT 2 UNLOCKED</p>
+          <p className="font-mono text-sm text-[#a0a0b8]">
             First sale → $10,000 MRR
           </p>
         </div>
 
         <button
           onClick={onDone}
-          className="font-pixel text-[10px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
+          className="font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
         >
           ENTER ACT 2 →
         </button>

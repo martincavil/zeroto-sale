@@ -16,14 +16,14 @@ export default function SuccessPage() {
           </p>
         </div>
 
-        <div className="pixel-border bg-[#12121a] p-6 flex flex-col gap-3 max-w-sm w-full">
+        <div className="pixel-border bg-[#12121a] p-7 flex flex-col gap-3 max-w-sm w-full">
           {[
             "✓ Unlimited AI generations unlocked",
             "✓ All 14 levels accessible",
             "✓ Discord community access",
             "✓ Leaderboard activated",
           ].map((item) => (
-            <p key={item} className="font-mono text-xs text-[#e8e8f0] text-left">
+            <p key={item} className="font-mono text-sm text-[#e8e8f0] text-left">
               {item}
             </p>
           ))}
@@ -31,7 +31,7 @@ export default function SuccessPage() {
 
         <Link
           href="/dashboard"
-          className="font-pixel text-[10px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
+          className="font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
         >
           START BUILDING →
         </Link>

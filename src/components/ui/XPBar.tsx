@@ -16,12 +16,12 @@ export function XPBar({ current, max, label = "XP", className, animate = true }:
   return (
     <div className={cn("flex flex-col gap-1 w-full", className)}>
       <div className="flex justify-between items-center">
-        <span className="font-pixel text-[8px] text-[#fbbf24] glow-xp">{label}</span>
-        <span className="font-pixel text-[8px] text-[#6b6b8a]">
+        <span className="font-pixel text-[11px] text-[#fbbf24] glow-xp">{label}</span>
+        <span className="font-pixel text-[11px] text-[#6b6b8a]">
           {current}/{max}
         </span>
       </div>
-      <div className="h-3 bg-[#12121a] border-2 border-[#1e1e2e] relative overflow-hidden">
+      <div className="h-4 bg-[#12121a] border-2 border-[#1e1e2e] relative overflow-hidden">
         <div
           className={cn(
             "h-full bg-[#fbbf24] transition-all duration-1000",
