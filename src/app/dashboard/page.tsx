@@ -17,20 +17,27 @@ export default async function DashboardPage() {
 
   if (!project) redirect("/onboarding")
 
-  const { data: taskCompletions } = await db
-    .from("task_completions")
-    .select("task_id")
-    .eq("project_id", project.id)
+  const [{ data: taskCompletions }, { data: stepOutputs }] = await Promise.all([
+    db.from("task_completions").select("task_id").eq("project_id", project.id),
+    db.from("step_outputs").select("step, output").eq("project_id", project.id),
+  ])
 
   const initialTaskCompletions = (taskCompletions ?? []).map(
     (t: { task_id: string }) => t.task_id
   )
+
+  // Map step → saved content string
+  const savedOutputs: Record<number, string> = {}
+  for (const row of stepOutputs ?? []) {
+    if (row.output?.content) savedOutputs[row.step] = row.output.content
+  }
 
   return (
     <DashboardView
       project={project}
       profile={profile}
       initialTaskCompletions={initialTaskCompletions}
+      savedOutputs={savedOutputs}
     />
   )
 }

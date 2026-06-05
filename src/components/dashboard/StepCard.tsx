@@ -13,6 +13,7 @@ interface StepCardProps {
   isLocked: boolean
   projectId: string
   completedTasks: string[]
+  savedOutput?: string
   onTaskToggle: (taskId: string) => void
   onStepComplete: () => void
 }
@@ -24,6 +25,7 @@ export function StepCard({
   isLocked,
   projectId,
   completedTasks,
+  savedOutput,
   onTaskToggle,
   onStepComplete,
 }: StepCardProps) {
@@ -31,6 +33,7 @@ export function StepCard({
   const { output, loading, done, error, generate } = useAIGenerate({
     step: step.id,
     projectId,
+    savedOutput,
   })
 
   const allTasksDone = step.tasks.every((t) => completedTasks.includes(t.id))
@@ -148,6 +151,7 @@ export function StepCard({
               error={error}
               onGenerate={generate}
               label={step.aiOutput}
+              isSaved={!!savedOutput && output === savedOutput}
             />
           </div>
 

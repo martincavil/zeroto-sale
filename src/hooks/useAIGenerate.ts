@@ -5,12 +5,13 @@ import { useState, useCallback } from "react"
 interface UseAIGenerateOptions {
   step: number
   projectId: string
+  savedOutput?: string
 }
 
-export function useAIGenerate({ step, projectId }: UseAIGenerateOptions) {
-  const [output, setOutput] = useState("")
+export function useAIGenerate({ step, projectId, savedOutput }: UseAIGenerateOptions) {
+  const [output, setOutput] = useState(savedOutput ?? "")
   const [loading, setLoading] = useState(false)
-  const [done, setDone] = useState(false)
+  const [done, setDone] = useState(!!savedOutput)
   const [error, setError] = useState<string | null>(null)
 
   const generate = useCallback(async () => {
@@ -26,9 +27,7 @@ export function useAIGenerate({ step, projectId }: UseAIGenerateOptions) {
         body: JSON.stringify({ step, projectId }),
       })
 
-      if (!res.ok) {
-        throw new Error(`${res.status}: ${await res.text()}`)
-      }
+      if (!res.ok) throw new Error(`${res.status}: ${await res.text()}`)
 
       const reader = res.body?.getReader()
       if (!reader) throw new Error("No stream")
@@ -45,7 +44,6 @@ export function useAIGenerate({ step, projectId }: UseAIGenerateOptions) {
         for (const line of lines) {
           if (!line.startsWith("data: ")) continue
           const data = JSON.parse(line.slice(6))
-
           if (data.text) setOutput((prev) => prev + data.text)
           if (data.done) setDone(true)
           if (data.error) setError(data.error)

@@ -10,9 +10,10 @@ interface AIOutputProps {
   error: string | null
   onGenerate: () => void
   label?: string
+  isSaved?: boolean
 }
 
-export function AIOutput({ output, loading, done, error, onGenerate, label }: AIOutputProps) {
+export function AIOutput({ output, loading, done, error, onGenerate, label, isSaved }: AIOutputProps) {
   return (
     <div className="flex flex-col gap-4">
       {/* Generate button */}
@@ -57,14 +58,19 @@ export function AIOutput({ output, loading, done, error, onGenerate, label }: AI
         </div>
       )}
 
-      {/* Done: regenerate button */}
+      {/* Done: status + regenerate */}
       {done && !loading && (
-        <button
-          onClick={onGenerate}
-          className="font-mono text-sm text-[#8b8ba8] hover:text-[#c4c4d4] transition-colors text-center"
-        >
-          ↻ Regenerate
-        </button>
+        <div className="flex items-center justify-between">
+          {isSaved && (
+            <span className="font-pixel text-[11px] text-[#10b981]">✓ saved</span>
+          )}
+          <button
+            onClick={onGenerate}
+            className="font-mono text-sm text-[#8b8ba8] hover:text-[#c4c4d4] transition-colors ml-auto"
+          >
+            ↻ Regenerate
+          </button>
+        </div>
       )}
 
       {/* Error */}

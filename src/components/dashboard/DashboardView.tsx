@@ -17,11 +17,12 @@ interface DashboardViewProps {
   project: Project
   profile: Profile
   initialTaskCompletions: string[]
+  savedOutputs: Record<number, string>
 }
 
 const XP_PER_LEVEL = 200
 
-export function DashboardView({ project, profile, initialTaskCompletions }: DashboardViewProps) {
+export function DashboardView({ project, profile, initialTaskCompletions, savedOutputs }: DashboardViewProps) {
   const [, startTransition] = useTransition()
   const [completedTasks, setCompletedTasks] = useState<string[]>(initialTaskCompletions)
   const [showLevelUp, setShowLevelUp] = useState(false)
@@ -138,6 +139,7 @@ export function DashboardView({ project, profile, initialTaskCompletions }: Dash
               isLocked={step.id > optimisticProject.current_step}
               projectId={project.id}
               completedTasks={completedTasks}
+              savedOutput={savedOutputs[step.id]}
               onTaskToggle={handleTaskToggle}
               onStepComplete={() => handleStepComplete(step.id, step.xpReward)}
             />
@@ -163,6 +165,7 @@ export function DashboardView({ project, profile, initialTaskCompletions }: Dash
               isLocked={!act2Unlocked || step.id > optimisticProject.current_step}
               projectId={project.id}
               completedTasks={completedTasks}
+              savedOutput={savedOutputs[step.id]}
               onTaskToggle={handleTaskToggle}
               onStepComplete={() => handleStepComplete(step.id, step.xpReward)}
             />
