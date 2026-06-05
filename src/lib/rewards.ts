@@ -1,0 +1,138 @@
+export interface Reward {
+  level: number
+  title: string
+  description: string
+  unlocks: string[]
+  badge: string
+  color: string
+  glow: string
+}
+
+export const STEP_REWARDS: Record<number, Reward> = {
+  1: {
+    level: 1,
+    title: "IDEA LOCKED IN",
+    description: "Your ICP is defined. Your competitive edge is clear.",
+    unlocks: ["Step 2: Validate before coding", "AI validation templates"],
+    badge: "🧠",
+    color: "#7c3aed",
+    glow: "rgba(124,58,237,0.4)",
+  },
+  2: {
+    level: 2,
+    title: "VALIDATED",
+    description: "Real humans confirmed your problem. That's more than 90% of builders ever do.",
+    unlocks: ["Step 3: Landing page", "AI landing copy generator"],
+    badge: "✅",
+    color: "#06b6d4",
+    glow: "rgba(6,182,212,0.4)",
+  },
+  3: {
+    level: 3,
+    title: "LIVE ON THE INTERNET",
+    description: "You have a URL. You're real. Most builders never get here.",
+    unlocks: ["Step 4: Drive traffic", "AI community posts generator"],
+    badge: "🌐",
+    color: "#10b981",
+    glow: "rgba(16,185,129,0.4)",
+  },
+  4: {
+    level: 4,
+    title: "100 VISITORS",
+    description: "Real people saw what you're building. Traffic is proof of signal.",
+    unlocks: ["Step 5: Build your MVP", "AI technical plan generator"],
+    badge: "📈",
+    color: "#f59e0b",
+    glow: "rgba(245,158,11,0.4)",
+  },
+  5: {
+    level: 5,
+    title: "MVP SHIPPED",
+    description: "You built the thing. Now it's time to sell it.",
+    unlocks: ["Step 6: Convert waitlist", "AI email sequence generator"],
+    badge: "🚀",
+    color: "#7c3aed",
+    glow: "rgba(124,58,237,0.4)",
+  },
+  6: {
+    level: 6,
+    title: "WAITLIST ACTIVATED",
+    description: "Your first potential customers are in motion. Close them.",
+    unlocks: ["Step 7: First sale", "AI closing script"],
+    badge: "⚡",
+    color: "#06b6d4",
+    glow: "rgba(6,182,212,0.4)",
+  },
+  7: {
+    level: 7,
+    title: "FIRST SALE 🎉",
+    description: "You did what most builders never do. Everything changes from here.",
+    unlocks: ["ACT II UNLOCKED", "All 7 growth levels", "Discord community access"],
+    badge: "💰",
+    color: "#fbbf24",
+    glow: "rgba(251,191,36,0.6)",
+  },
+  8: {
+    level: 8,
+    title: "10 CUSTOMERS",
+    description: "You're not a one-hit wonder. You have a real product.",
+    unlocks: ["Level 9: $100 MRR", "AI retention toolkit"],
+    badge: "👥",
+    color: "#10b981",
+    glow: "rgba(16,185,129,0.4)",
+  },
+  9: {
+    level: 9,
+    title: "$100 MRR",
+    description: "Triple digits. The first real milestone of a real business.",
+    unlocks: ["Level 10: $500 MRR", "AI channel strategy"],
+    badge: "💵",
+    color: "#10b981",
+    glow: "rgba(16,185,129,0.4)",
+  },
+  10: {
+    level: 10,
+    title: "$500 MRR",
+    description: "Your first acquisition channel is working. Now double down.",
+    unlocks: ["Level 11: $1,000 MRR", "AI onboarding sequence"],
+    badge: "📊",
+    color: "#06b6d4",
+    glow: "rgba(6,182,212,0.4)",
+  },
+  11: {
+    level: 11,
+    title: "$1,000 MRR",
+    description: "Four figures monthly. You're building a real SaaS.",
+    unlocks: ["Level 12: $2,500 MRR", "AI referral program"],
+    badge: "🏆",
+    color: "#7c3aed",
+    glow: "rgba(124,58,237,0.4)",
+  },
+  12: {
+    level: 12,
+    title: "$2,500 MRR",
+    description: "Momentum is real. You have something that scales.",
+    unlocks: ["Level 13: $5,000 MRR", "AI affiliate system"],
+    badge: "🔥",
+    color: "#f59e0b",
+    glow: "rgba(245,158,11,0.4)",
+  },
+  13: {
+    level: 13,
+    title: "$5,000 MRR",
+    description: "You're in the top 1% of indie hackers. Keep pushing.",
+    unlocks: ["Level 14: $10,000 MRR", "AI delegation playbook"],
+    badge: "⚜️",
+    color: "#7c3aed",
+    glow: "rgba(124,58,237,0.4)",
+  },
+  14: {
+    level: 14,
+    title: "$10,000 MRR 👑",
+    description: "You made it. From zero to $10k MRR. Time to write the playbook.",
+    unlocks: ["10K Club access", "Verified builder badge", "Hall of Fame"],
+    badge: "👑",
+    color: "#fbbf24",
+    glow: "rgba(251,191,36,0.6)",
+  },
+}

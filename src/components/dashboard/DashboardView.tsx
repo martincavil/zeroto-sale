@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation"
 import { PixelCharacter } from "@/components/pixel/PixelCharacter"
 import { XPBar } from "@/components/ui/XPBar"
 import { StepCard } from "@/components/dashboard/StepCard"
-import { LevelUpToast } from "@/components/ui/LevelUpToast"
-import { FirstSaleCelebration } from "@/components/ui/FirstSaleCelebration"
+import { RewardModal } from "@/components/ui/RewardModal"
 import { ACT1_STEPS, ACT2_STEPS } from "@/lib/steps"
+import { STEP_REWARDS } from "@/lib/rewards"
 import { completeStep, toggleTask } from "@/app/dashboard/actions"
 import type { Database } from "@/types/database"
 
@@ -26,11 +26,8 @@ const XP_PER_LEVEL = 200
 export function DashboardView({ project, profile, initialTaskCompletions, savedOutputs }: DashboardViewProps) {
   const router = useRouter()
   const [completedTasks, setCompletedTasks] = useState<string[]>(initialTaskCompletions)
-  const [showLevelUp, setShowLevelUp] = useState(false)
-  const [newLevel, setNewLevel] = useState(1)
-  const [showFirstSale, setShowFirstSale] = useState(false)
+  const [pendingReward, setPendingReward] = useState<{ stepId: number; xpGained: number; totalXP: number } | null>(null)
 
-  // Local state mirrors DB — updated immediately, then synced via router.refresh()
   const [localProject, setLocalProject] = useState(project)
   const [localXP, setLocalXP] = useState(profile?.xp ?? 0)
 
@@ -46,34 +43,31 @@ export function DashboardView({ project, profile, initialTaskCompletions, savedO
   async function handleStepComplete(stepId: number, xpReward: number) {
     const newCompleted = [...localProject.completed_steps, stepId]
     const newXP = localXP + xpReward
-    const nextLevel = Math.floor(newXP / XP_PER_LEVEL) + 1
 
-    // Update local state immediately
     setLocalProject((p) => ({ ...p, completed_steps: newCompleted, current_step: stepId + 1 }))
     setLocalXP(newXP)
+    setPendingReward({ stepId, xpGained: xpReward, totalXP: newXP })
 
-    if (nextLevel > level) {
-      setNewLevel(nextLevel)
-      setShowLevelUp(true)
-    }
-
-    if (stepId === 7) setShowFirstSale(true)
-
-    // Persist + refresh server data in background
     await completeStep(project.id, stepId, xpReward)
     router.refresh()
+  }
+
+  function handleRewardDone() {
+    setPendingReward(null)
   }
 
   const act2Unlocked = localProject.completed_steps.includes(7)
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Overlays */}
-      {showLevelUp && !showFirstSale && (
-        <LevelUpToast level={newLevel} onDone={() => setShowLevelUp(false)} />
-      )}
-      {showFirstSale && (
-        <FirstSaleCelebration onDone={() => setShowFirstSale(false)} />
+      {/* Reward modal */}
+      {pendingReward && STEP_REWARDS[pendingReward.stepId] && (
+        <RewardModal
+          reward={STEP_REWARDS[pendingReward.stepId]}
+          xpGained={pendingReward.xpGained}
+          totalXP={pendingReward.totalXP}
+          onDone={handleRewardDone}
+        />
       )}
 
       {/* Top bar */}
