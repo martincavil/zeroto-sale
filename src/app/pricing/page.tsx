@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { PixelCharacter } from "@/components/pixel/PixelCharacter"
+import { CheckoutButton } from "@/components/billing/CheckoutButton"
 
 export const metadata: Metadata = {
   title: "Pricing — zeroto.sale",
   description: "Start free. Go Pro for $9/mo or own it forever for $89.",
 }
-import { PixelCharacter } from "@/components/pixel/PixelCharacter"
 
 export default function PricingPage() {
   return (
@@ -74,19 +75,19 @@ export default function PricingPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <Link
-                href="/signup?plan=lifetime"
+              <CheckoutButton
+                plan="lifetime"
                 className="w-full font-pixel text-[14px] px-4 py-3 bg-[#fbbf24] text-[#0a0a0f] hover:bg-[#f59e0b] transition-colors text-center pixel-border"
                 style={{ borderColor: "#fbbf24", boxShadow: "4px 4px 0px rgba(251,191,36,0.3)" }}
               >
                 GET LIFETIME — $89 →
-              </Link>
-              <Link
-                href="/signup?plan=pro"
+              </CheckoutButton>
+              <CheckoutButton
+                plan="monthly"
                 className="w-full font-pixel text-[14px] px-4 py-3 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors text-center pixel-border-primary"
               >
                 START PRO — $9/MO →
-              </Link>
+              </CheckoutButton>
             </div>
           </div>
         </div>

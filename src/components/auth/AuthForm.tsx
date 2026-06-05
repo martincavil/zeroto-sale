@@ -8,9 +8,10 @@ import { PixelCharacter } from "@/components/pixel/PixelCharacter"
 
 interface AuthFormProps {
   mode: "login" | "signup"
+  redirectPlan?: string
 }
 
-export function AuthForm({ mode }: AuthFormProps) {
+export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
   const router = useRouter()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -28,6 +29,16 @@ export function AuthForm({ mode }: AuthFormProps) {
       const { error } = await supabase.auth.signUp({ email, password })
       if (error) {
         setError(error.message)
+      } else if (redirectPlan) {
+        // Came from pricing — go straight to checkout
+        const res = await fetch("/api/stripe/checkout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ plan: redirectPlan }),
+        })
+        const { url } = await res.json()
+        if (url) { window.location.href = url; return }
+        router.push("/onboarding")
       } else {
         router.push("/onboarding")
       }
