@@ -17,7 +17,7 @@ export function ManageSubscriptionButton() {
     <button
       onClick={handleManage}
       disabled={loading}
-      className="font-pixel text-[14px] px-4 py-3 border-2 border-[#1e1e2e] text-[#6b6b8a] hover:border-[#7c3aed] hover:text-[#e8e8f0] transition-colors disabled:opacity-50"
+      className="font-pixel text-[16px] px-4 py-3 border-2 border-[#1e1e2e] text-[#8b8ba8] hover:border-[#7c3aed] hover:text-[#e8e8f0] transition-colors disabled:opacity-50"
     >
       {loading ? "..." : "MANAGE SUBSCRIPTION →"}
     </button>

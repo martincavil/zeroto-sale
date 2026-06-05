@@ -91,7 +91,7 @@ export function DashboardView({ project, profile, initialTaskCompletions }: Dash
               <XPBar current={xp % XP_PER_LEVEL} max={XP_PER_LEVEL} label={`LVL ${level}`} />
             </div>
           </div>
-          <a href="/account" className="font-mono text-sm text-[#6b6b8a] hover:text-[#a0a0b8] hidden sm:block">
+          <a href="/account" className="font-mono text-sm text-[#8b8ba8] hover:text-[#c4c4d4] hidden sm:block">
             {profile?.plan ?? "free"}
           </a>
         </div>
@@ -101,9 +101,9 @@ export function DashboardView({ project, profile, initialTaskCompletions }: Dash
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8 flex flex-col gap-6">
         {/* Project context */}
         <div className="pixel-border bg-[#12121a] p-5 flex flex-col gap-2">
-          <span className="font-pixel text-[11px] text-[#6b6b8a]">YOUR SAAS</span>
+          <span className="font-pixel text-[13px] text-[#8b8ba8]">YOUR SAAS</span>
           <p className="font-mono text-sm text-[#e8e8f0]">{optimisticProject.problem}</p>
-          <p className="font-mono text-sm text-[#6b6b8a]">→ {optimisticProject.target}</p>
+          <p className="font-mono text-sm text-[#8b8ba8]">→ {optimisticProject.target}</p>
         </div>
 
         {/* Progress summary */}
@@ -112,21 +112,21 @@ export function DashboardView({ project, profile, initialTaskCompletions }: Dash
             <span className="font-pixel text-lg text-[#7c3aed]">
               {optimisticProject.completed_steps.length}
             </span>
-            <p className="font-pixel text-[11px] text-[#6b6b8a] mt-1">STEPS</p>
+            <p className="font-pixel text-[13px] text-[#8b8ba8] mt-1">STEPS</p>
           </div>
           <div className="flex-1 pixel-border bg-[#12121a] p-5 text-center">
             <span className="font-pixel text-lg text-[#fbbf24]">{xp}</span>
-            <p className="font-pixel text-[11px] text-[#6b6b8a] mt-1">XP</p>
+            <p className="font-pixel text-[13px] text-[#8b8ba8] mt-1">XP</p>
           </div>
           <div className="flex-1 pixel-border bg-[#12121a] p-5 text-center">
             <span className="font-pixel text-lg text-[#06b6d4]">{level}</span>
-            <p className="font-pixel text-[11px] text-[#6b6b8a] mt-1">LEVEL</p>
+            <p className="font-pixel text-[13px] text-[#8b8ba8] mt-1">LEVEL</p>
           </div>
         </div>
 
         {/* Act 1 */}
         <div className="flex flex-col gap-3">
-          <span className="font-pixel text-[11px] text-[#6b6b8a]">
+          <span className="font-pixel text-[13px] text-[#8b8ba8]">
             ACT I — IDEA TO FIRST SALE
           </span>
           {ACT1_STEPS.map((step) => (
@@ -147,11 +147,11 @@ export function DashboardView({ project, profile, initialTaskCompletions }: Dash
         {/* Act 2 */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center justify-between">
-            <span className="font-pixel text-[11px] text-[#6b6b8a]">
+            <span className="font-pixel text-[13px] text-[#8b8ba8]">
               ACT II — FIRST SALE TO $10K MRR
             </span>
             {!act2Unlocked && (
-              <span className="font-pixel text-[11px] text-[#6b6b8a]">🔒 LOCKED</span>
+              <span className="font-pixel text-[13px] text-[#8b8ba8]">🔒 LOCKED</span>
             )}
           </div>
           {ACT2_STEPS.map((step) => (
@@ -172,13 +172,13 @@ export function DashboardView({ project, profile, initialTaskCompletions }: Dash
         {/* Upgrade CTA for free users */}
         {profile?.plan === "free" && (
           <div className="pixel-border-primary bg-[#12121a] p-7 flex flex-col gap-4 text-center">
-            <span className="font-pixel text-[11px] text-[#7c3aed]">UNLOCK EVERYTHING</span>
-            <p className="font-mono text-sm text-[#a0a0b8]">
+            <span className="font-pixel text-[13px] text-[#7c3aed]">UNLOCK EVERYTHING</span>
+            <p className="font-mono text-sm text-[#c4c4d4]">
               Get unlimited AI generations and access to all 14 levels.
             </p>
             <a
               href="/pricing"
-              className="font-pixel text-[14px] px-4 py-3 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
+              className="font-pixel text-[16px] px-4 py-3 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
             >
               GO PRO — $9/MO →
             </a>

@@ -86,13 +86,13 @@ export function OnboardingForm() {
         {/* Question */}
         <div className="pixel-border bg-[#12121a] p-7 flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <span className="font-pixel text-[11px] text-[#6b6b8a]">
+            <span className="font-pixel text-[13px] text-[#8b8ba8]">
               QUESTION {current.id}
             </span>
-            <h2 className="font-pixel text-[14px] text-[#e8e8f0] leading-loose">
+            <h2 className="font-pixel text-[16px] text-[#e8e8f0] leading-loose">
               {current.label}
             </h2>
-            <p className="font-mono text-sm text-[#6b6b8a]">{current.hint}</p>
+            <p className="font-mono text-sm text-[#8b8ba8]">{current.hint}</p>
           </div>
 
           <textarea
@@ -111,7 +111,7 @@ export function OnboardingForm() {
               (current.required && !values[current.field as keyof typeof values].trim()) ||
               loading
             }
-            className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary"
+            className="w-full font-pixel text-[16px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary"
           >
             {loading
               ? "SAVING..."
@@ -123,7 +123,7 @@ export function OnboardingForm() {
           {!current.required && (
             <button
               onClick={handleNext}
-              className="font-mono text-sm text-[#6b6b8a] hover:text-[#a0a0b8] transition-colors text-center"
+              className="font-mono text-sm text-[#8b8ba8] hover:text-[#c4c4d4] transition-colors text-center"
             >
               Skip for now
             </button>

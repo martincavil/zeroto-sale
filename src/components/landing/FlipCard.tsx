@@ -30,8 +30,8 @@ export function FlipCard({ id, title, motivation }: FlipCardProps) {
           className="absolute inset-0 pixel-border bg-[#12121a] p-3 flex flex-col gap-1 text-left"
           style={{ backfaceVisibility: "hidden" }}
         >
-          <span className="font-pixel text-[10px] text-[#6b6b8a]">LVL {id}</span>
-          <span className="font-mono text-xs text-[#a0a0b8] leading-tight">{title}</span>
+          <span className="font-pixel text-[13px] text-[#8b8ba8]">LVL {id}</span>
+          <span className="font-mono text-xs text-[#c4c4d4] leading-tight">{title}</span>
         </div>
 
         {/* Back */}

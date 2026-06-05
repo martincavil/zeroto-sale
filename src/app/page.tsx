@@ -18,13 +18,13 @@ export default function LandingPage() {
       <div className="relative z-10 max-w-2xl w-full flex flex-col items-center gap-6 text-center">
         {/* Logo */}
         <div className="flex flex-col items-center gap-2">
-          <span className="font-pixel text-[11px] text-[#6b6b8a] tracking-widest uppercase">
+          <span className="font-pixel text-[13px] text-[#8b8ba8] tracking-widest uppercase">
             level 0
           </span>
           <h1 className="font-pixel text-2xl md:text-3xl text-[#e8e8f0] leading-tight">
             zeroto<span className="text-[#7c3aed]">.sale</span>
           </h1>
-          <p className="font-mono text-sm text-[#a0a0b8] max-w-sm">
+          <p className="font-mono text-sm text-[#c4c4d4] max-w-sm">
             From idea to first sale — step by step, powered by AI.
           </p>
         </div>
@@ -36,13 +36,13 @@ export default function LandingPage() {
         <div className="flex flex-col items-center gap-3 w-full max-w-xs">
           <Link
             href="/signup"
-            className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors text-center pixel-border-primary"
+            className="w-full font-pixel text-[16px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors text-center pixel-border-primary"
           >
             START YOUR JOURNEY →
           </Link>
           <Link
             href="/login"
-            className="font-mono text-sm text-[#6b6b8a] hover:text-[#a0a0b8] transition-colors"
+            className="font-mono text-sm text-[#8b8ba8] hover:text-[#c4c4d4] transition-colors"
           >
             Already building? Log in
           </Link>
@@ -55,7 +55,7 @@ export default function LandingPage() {
           ))}
         </div>
 
-        <p className="font-pixel text-[11px] text-[#6b6b8a]">
+        <p className="font-pixel text-[13px] text-[#8b8ba8]">
           $9/mo · $89 lifetime
         </p>
       </div>

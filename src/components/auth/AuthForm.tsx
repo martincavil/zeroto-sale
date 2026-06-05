@@ -79,12 +79,12 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
 
           <div className="relative flex flex-col gap-8">
             <div className="flex flex-col gap-3">
-              <span className="font-pixel text-[11px] text-[#6b6b8a]">zeroto.sale</span>
+              <span className="font-pixel text-[13px] text-[#8b8ba8]">zeroto.sale</span>
               <h2 className="font-pixel text-base text-[#e8e8f0] leading-loose">
                 Your first sale<br />
                 <span className="text-[#7c3aed]">starts here.</span>
               </h2>
-              <p className="font-mono text-sm text-[#6b6b8a]">
+              <p className="font-mono text-sm text-[#8b8ba8]">
                 A gamified roadmap from idea to first paying customer — powered by AI.
               </p>
             </div>
@@ -98,19 +98,19 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
                 { n: 7, t: "🎉 First sale" },
               ].map((s) => (
                 <div key={s.n} className="flex items-center gap-3">
-                  <span className="font-pixel text-[10px] text-[#7c3aed] w-8">L{s.n}</span>
-                  <span className="font-mono text-sm text-[#a0a0b8]">{s.t}</span>
+                  <span className="font-pixel text-[13px] text-[#7c3aed] w-8">L{s.n}</span>
+                  <span className="font-mono text-sm text-[#c4c4d4]">{s.t}</span>
                 </div>
               ))}
-              <span className="font-mono text-sm text-[#6b6b8a] ml-11">+ 10 more levels...</span>
+              <span className="font-mono text-sm text-[#8b8ba8] ml-11">+ 10 more levels...</span>
             </div>
 
             {/* Character */}
             <div className="flex items-center gap-4">
               <PixelCharacter level={7} animated size="lg" />
               <div className="flex flex-col gap-1">
-                <span className="font-pixel text-[10px] text-[#fbbf24]">🎉 FIRST SALE</span>
-                <span className="font-mono text-sm text-[#6b6b8a]">That could be you.</span>
+                <span className="font-pixel text-[13px] text-[#fbbf24]">🎉 FIRST SALE</span>
+                <span className="font-mono text-sm text-[#8b8ba8]">That could be you.</span>
               </div>
             </div>
 
@@ -119,7 +119,7 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
               {SOCIAL_PROOF.map((s) => (
                 <div key={s} className="flex items-center gap-2">
                   <span className="text-[#10b981] text-sm">✓</span>
-                  <span className="font-mono text-sm text-[#6b6b8a]">{s}</span>
+                  <span className="font-mono text-sm text-[#8b8ba8]">{s}</span>
                 </div>
               ))}
             </div>
@@ -137,7 +137,7 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
             <h1 className="font-pixel text-base text-[#e8e8f0]">
               {mode === "login" ? "WELCOME BACK" : "CREATE YOUR ACCOUNT"}
             </h1>
-            <p className="font-mono text-sm text-[#6b6b8a]">
+            <p className="font-mono text-sm text-[#8b8ba8]">
               {mode === "login"
                 ? "Continue your journey to first sale"
                 : "Free to start. No credit card needed."}
@@ -147,7 +147,7 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
           {/* Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
-              <label className="font-pixel text-[11px] text-[#6b6b8a]">EMAIL</label>
+              <label className="font-pixel text-[13px] text-[#8b8ba8]">EMAIL</label>
               <input
                 type="email"
                 value={email}
@@ -159,7 +159,7 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="font-pixel text-[11px] text-[#6b6b8a]">PASSWORD</label>
+              <label className="font-pixel text-[13px] text-[#8b8ba8]">PASSWORD</label>
               <input
                 type="password"
                 value={password}
@@ -180,7 +180,7 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary mt-2"
+              className="w-full font-pixel text-[16px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors pixel-border-primary mt-2"
             >
               {loading ? "..." : mode === "login" ? "LOG IN →" : "CREATE ACCOUNT →"}
             </button>
@@ -192,14 +192,14 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
               {TRUST_BADGES.map((b) => (
                 <div key={b.label} className="flex flex-col items-center gap-1">
                   <span className="text-lg">{b.icon}</span>
-                  <span className="font-pixel text-[9px] text-[#6b6b8a]">{b.label}</span>
+                  <span className="font-pixel text-[12px] text-[#8b8ba8]">{b.label}</span>
                 </div>
               ))}
             </div>
           )}
 
           {/* Switch mode */}
-          <p className="font-mono text-sm text-[#6b6b8a] text-center">
+          <p className="font-mono text-sm text-[#8b8ba8] text-center">
             {mode === "login" ? (
               <>No account?{" "}
                 <Link href="/signup" className="text-[#7c3aed] hover:underline">Sign up free</Link>

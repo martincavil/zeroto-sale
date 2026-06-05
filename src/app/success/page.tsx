@@ -11,7 +11,7 @@ export default function SuccessPage() {
           <h1 className="font-pixel text-lg text-[#10b981] leading-loose glow-success">
             YOU&apos;RE IN
           </h1>
-          <p className="font-mono text-sm text-[#a0a0b8] max-w-sm">
+          <p className="font-mono text-sm text-[#c4c4d4] max-w-sm">
             Welcome to Pro. Your journey to first sale just got a lot more serious.
           </p>
         </div>
@@ -31,7 +31,7 @@ export default function SuccessPage() {
 
         <Link
           href="/dashboard"
-          className="font-pixel text-[14px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
+          className="font-pixel text-[16px] px-6 py-4 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary"
         >
           START BUILDING →
         </Link>

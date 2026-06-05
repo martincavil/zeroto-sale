@@ -19,7 +19,7 @@ export function AIOutput({ output, loading, done, error, onGenerate, label }: AI
       {!output && !loading && (
         <button
           onClick={onGenerate}
-          className="w-full font-pixel text-[14px] px-4 py-4 bg-[#06b6d4] text-[#0a0a0f] hover:bg-[#0891b2] transition-colors pixel-border-accent"
+          className="w-full font-pixel text-[16px] px-4 py-4 bg-[#06b6d4] text-[#0a0a0f] hover:bg-[#0891b2] transition-colors pixel-border-accent"
         >
           ✨ GENERATE WITH AI →
         </button>
@@ -27,7 +27,7 @@ export function AIOutput({ output, loading, done, error, onGenerate, label }: AI
 
       {/* Loading state */}
       {loading && !output && (
-        <div className="flex items-center gap-3 font-mono text-sm text-[#6b6b8a] py-4">
+        <div className="flex items-center gap-3 font-mono text-sm text-[#8b8ba8] py-4">
           <span className="animate-blink text-[#06b6d4]">█</span>
           <span>Generating {label ?? "output"}...</span>
         </div>
@@ -42,7 +42,7 @@ export function AIOutput({ output, loading, done, error, onGenerate, label }: AI
           )}
         >
           {loading && (
-            <div className="flex items-center gap-2 mb-4 font-pixel text-[11px] text-[#06b6d4]">
+            <div className="flex items-center gap-2 mb-4 font-pixel text-[13px] text-[#06b6d4]">
               <span className="animate-blink">█</span> GENERATING...
             </div>
           )}
@@ -61,7 +61,7 @@ export function AIOutput({ output, loading, done, error, onGenerate, label }: AI
       {done && !loading && (
         <button
           onClick={onGenerate}
-          className="font-mono text-sm text-[#6b6b8a] hover:text-[#a0a0b8] transition-colors text-center"
+          className="font-mono text-sm text-[#8b8ba8] hover:text-[#c4c4d4] transition-colors text-center"
         >
           ↻ Regenerate
         </button>

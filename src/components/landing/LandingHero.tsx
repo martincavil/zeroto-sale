@@ -78,7 +78,7 @@ export function LandingHero() {
           className={isSale ? "drop-shadow-[0_0_16px_rgba(251,191,36,0.8)]" : ""}
         />
         {isSale && (
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 font-pixel text-[10px] text-[#fbbf24] whitespace-nowrap animate-bounce">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 font-pixel text-[13px] text-[#fbbf24] whitespace-nowrap animate-bounce">
             +$47
           </div>
         )}
@@ -86,7 +86,7 @@ export function LandingHero() {
 
       <div className="w-full flex flex-col gap-1">
         <span
-          className={`font-pixel text-[11px] text-center transition-colors duration-300 ${
+          className={`font-pixel text-[13px] text-center transition-colors duration-300 ${
             isSale ? "text-[#fbbf24]" : "text-[#7c3aed]"
           }`}
         >
