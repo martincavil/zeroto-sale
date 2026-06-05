@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import { AIOutput } from "@/components/ai/AIOutput";
 import { useAIGenerate } from "@/hooks/useAIGenerate";
@@ -30,6 +30,26 @@ export function StepCard({
   onStepComplete,
 }: StepCardProps) {
   const [expanded, setExpanded] = useState(isActive);
+  const prevCompleted = useRef(isCompleted);
+  const prevActive = useRef(isActive);
+
+  // Close 2s after step is completed
+  useEffect(() => {
+    if (!prevCompleted.current && isCompleted) {
+      const t = setTimeout(() => setExpanded(false), 2000);
+      return () => clearTimeout(t);
+    }
+    prevCompleted.current = isCompleted;
+  }, [isCompleted]);
+
+  // Open when this step becomes the active one
+  useEffect(() => {
+    if (!prevActive.current && isActive) {
+      const t = setTimeout(() => setExpanded(true), 2200);
+      return () => clearTimeout(t);
+    }
+    prevActive.current = isActive;
+  }, [isActive]);
   const { output, loading, done, error, generate } = useAIGenerate({
     step: step.id,
     projectId,
