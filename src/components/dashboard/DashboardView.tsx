@@ -128,6 +128,7 @@ export function DashboardView({ project, profile, initialTaskCompletions, savedO
               projectId={project.id}
               completedTasks={completedTasks}
               savedOutput={savedOutputs[step.id]}
+              plan={profile?.plan ?? "free"}
               onTaskToggle={handleTaskToggle}
               onStepComplete={() => handleStepComplete(step.id, step.xpReward)}
             />
@@ -154,6 +155,7 @@ export function DashboardView({ project, profile, initialTaskCompletions, savedO
               projectId={project.id}
               completedTasks={completedTasks}
               savedOutput={savedOutputs[step.id]}
+              plan={profile?.plan ?? "free"}
               onTaskToggle={handleTaskToggle}
               onStepComplete={() => handleStepComplete(step.id, step.xpReward)}
             />
