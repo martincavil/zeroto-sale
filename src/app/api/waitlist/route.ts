@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
-import { resend } from "@/lib/resend"
+import { getResend } from "@/lib/resend"
 
 export async function POST(req: NextRequest) {
   const { email } = await req.json()
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
   }
 
   // Send confirmation email
-  await resend.emails.send({
+  await getResend().emails.send({
     from: "Martin from zeroto.sale <martin@zeroto.sale>",
     to: email,
     subject: "You're on the zeroto.sale waitlist 🎮",

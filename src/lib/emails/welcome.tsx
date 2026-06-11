@@ -1,7 +1,7 @@
-import { resend } from "@/lib/resend"
+import { getResend } from "@/lib/resend"
 
 export async function sendWelcomeEmail(email: string) {
-  await resend.emails.send({
+  await getResend().emails.send({
     from: "Martin from zeroto.sale <martin@zeroto.sale>",
     to: email,
     subject: "Welcome to zeroto.sale — let's get you your first sale",
