@@ -41,17 +41,21 @@ export function AuthForm({ mode, redirectPlan }: AuthFormProps) {
       const { error } = await supabase.auth.signUp({ email, password })
       if (error) {
         setError(error.message)
-      } else if (redirectPlan) {
-        const res = await fetch("/api/stripe/checkout", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ plan: redirectPlan }),
-        })
-        const { url } = await res.json()
-        if (url) { window.location.href = url; return }
-        router.push("/onboarding")
       } else {
-        router.push("/onboarding")
+        fetch("/api/auth/welcome", { method: "POST" }).catch(() => {})
+
+        if (redirectPlan) {
+          const res = await fetch("/api/stripe/checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ plan: redirectPlan }),
+          })
+          const { url } = await res.json()
+          if (url) { window.location.href = url; return }
+          router.push("/onboarding")
+        } else {
+          router.push("/onboarding")
+        }
       }
     } else {
       const { error } = await supabase.auth.signInWithPassword({ email, password })
