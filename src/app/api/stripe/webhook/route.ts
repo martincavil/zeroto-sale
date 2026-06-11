@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server"
 import { stripe } from "@/lib/stripe"
 import Stripe from "stripe"
-import { createClient } from "@/lib/supabase/server"
+import { createAdminClient } from "@/lib/supabase/admin"
 
 export const dynamic = "force-dynamic"
 
 async function updateUserPlan(userId: string, plan: "pro" | "lifetime") {
-  const supabase = await createClient()
+  const supabase = createAdminClient()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (supabase as any)
     .from("profiles")
@@ -38,9 +38,10 @@ export async function POST(req: NextRequest) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Checkout.Session
       const userId = session.metadata?.supabase_user_id
-      const plan = session.metadata?.plan as "pro" | "lifetime"
+      const planKey = session.metadata?.plan as "monthly" | "lifetime" | undefined
 
-      if (userId && plan) {
+      if (userId && planKey) {
+        const plan = planKey === "monthly" ? "pro" : "lifetime"
         await updateUserPlan(userId, plan)
       }
       break
@@ -50,7 +51,7 @@ export async function POST(req: NextRequest) {
       const subscription = event.data.object as Stripe.Subscription
       const customerId = subscription.customer as string
 
-      const supabase = await createClient()
+      const supabase = createAdminClient()
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await (supabase as any)
         .from("profiles")
