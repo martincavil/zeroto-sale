@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Press_Start_2P, JetBrains_Mono } from "next/font/google"
+import { GoogleAnalytics } from "@next/third-parties/google"
 import "./globals.css"
 
 const pressStart2P = Press_Start_2P({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-[#0a0a0f] text-[#e8e8f0]">
         {children}
       </body>
+      <GoogleAnalytics gaId="G-3B3MBLG7N4" />
     </html>
   )
 }
