@@ -7,7 +7,11 @@ import { PixelWorld } from "@/components/landing/PixelWorld"
 import { FadeIn } from "@/components/landing/FadeIn"
 import { FlipCard } from "@/components/landing/FlipCard"
 
-export function LandingClient() {
+interface LandingClientProps {
+  isLoggedIn: boolean
+}
+
+export function LandingClient({ isLoggedIn }: LandingClientProps) {
   return (
     <>
       {/* ── Hero ── */}
@@ -217,7 +221,11 @@ export function LandingClient() {
         <span className="font-pixel text-base text-[#8b8ba8]">zeroto<span className="text-[#7c3aed]">.sale</span></span>
         <div className="flex gap-8">
           <Link href="/pricing" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Pricing</Link>
-          <Link href="/login"   className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Login</Link>
+          {isLoggedIn ? (
+            <Link href="/dashboard" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Dashboard</Link>
+          ) : (
+            <Link href="/login" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Login</Link>
+          )}
         </div>
       </footer>
     </>

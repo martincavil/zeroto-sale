@@ -15,7 +15,7 @@ export default async function LandingPage() {
   return (
     <main className="min-h-screen flex flex-col">
       <LandingNav isLoggedIn={!!user} />
-      <LandingClient />
+      <LandingClient isLoggedIn={!!user} />
     </main>
   )
 }
