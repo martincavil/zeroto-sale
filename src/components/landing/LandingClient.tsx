@@ -15,7 +15,7 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative min-h-[560px] flex flex-col items-center justify-center text-center px-6 py-24 overflow-hidden">
+      <section className="relative min-h-[480px] md:min-h-[560px] flex flex-col items-center justify-center text-center px-6 py-16 md:py-24 overflow-hidden">
         <PixelWorld />
         <div className="absolute bottom-0 left-0 right-0 h-px bg-[#1e1e2e]" />
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
@@ -25,7 +25,7 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="font-pixel text-sm text-[#7c3aed] border border-[#7c3aed33] px-5 py-3 bg-[#7c3aed11]"
+            className="font-pixel text-[10px] sm:text-sm text-[#7c3aed] border border-[#7c3aed33] px-3 sm:px-5 py-2 sm:py-3 bg-[#7c3aed11]"
           >
             ✦ BUILD IN PUBLIC · LEVEL UP IN REAL LIFE
           </motion.div>
@@ -34,7 +34,7 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="font-pixel text-4xl md:text-5xl text-[#e8e8f0] leading-tight"
+            className="font-pixel text-3xl sm:text-4xl md:text-5xl text-[#e8e8f0] leading-tight"
           >
             Stop building.<br />
             <span className="text-[#7c3aed]">Start selling.</span>
@@ -44,7 +44,7 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="font-mono text-xl text-[#c4c4d4] max-w-xl leading-relaxed"
+            className="font-mono text-sm sm:text-base md:text-xl text-[#c4c4d4] max-w-xl leading-relaxed"
           >
             Most SaaS builders spend months coding a product nobody buys.
             zeroto.sale gives you the exact roadmap to go from idea to
@@ -69,7 +69,7 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
           <FadeIn className="text-center">
             <p className="font-pixel text-sm text-[#8b8ba8]">HOVER EACH LEVEL</p>
           </FadeIn>
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3">
             {FLIP_STEPS.map((step, i) => (
               <FadeIn key={step.id} delay={i * 0.05}>
                 <FlipCard id={step.id} title={step.title} motivation={step.motivation} />
@@ -83,7 +83,7 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
       <section className="border-t border-[#1e1e2e] px-6 py-20">
         <div className="max-w-4xl mx-auto flex flex-col gap-12">
           <FadeIn className="text-center">
-            <h2 className="font-pixel text-2xl text-[#e8e8f0] leading-loose">Sound familiar?</h2>
+            <h2 className="font-pixel text-lg sm:text-2xl text-[#e8e8f0] leading-loose">Sound familiar?</h2>
           </FadeIn>
           <div className="grid md:grid-cols-3 gap-5">
             {PROBLEMS.map((p, i) => (
@@ -91,11 +91,11 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
                 <motion.div
                   whileHover={{ y: -5, borderColor: "#7c3aed" }}
                   transition={{ duration: 0.2 }}
-                  className="pixel-border bg-[#12121a] p-8 flex flex-col gap-4 h-full cursor-default"
+                  className="pixel-border bg-[#12121a] p-5 md:p-8 flex flex-col gap-3 h-full cursor-default"
                 >
-                  <span className="text-4xl">{p.emoji}</span>
-                  <h3 className="font-pixel text-base text-[#e8e8f0] leading-loose">{p.title}</h3>
-                  <p className="font-mono text-base text-[#8b8ba8] leading-relaxed">{p.desc}</p>
+                  <span className="text-3xl md:text-4xl">{p.emoji}</span>
+                  <h3 className="font-pixel text-sm md:text-base text-[#e8e8f0] leading-loose">{p.title}</h3>
+                  <p className="font-mono text-sm text-[#8b8ba8] leading-relaxed">{p.desc}</p>
                 </motion.div>
               </FadeIn>
             ))}
@@ -107,22 +107,22 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
       <section className="border-t border-[#1e1e2e] px-6 py-20 bg-[#0d0d14]">
         <div className="max-w-4xl mx-auto flex flex-col gap-12">
           <FadeIn className="flex flex-col items-center gap-4 text-center">
-            <h2 className="font-pixel text-2xl text-[#e8e8f0] leading-loose">How it works</h2>
-            <p className="font-mono text-lg text-[#8b8ba8]">14 levels. 2 acts. 1 goal.</p>
+            <h2 className="font-pixel text-lg sm:text-2xl text-[#e8e8f0] leading-loose">How it works</h2>
+            <p className="font-mono text-sm sm:text-lg text-[#8b8ba8]">14 levels. 2 acts. 1 goal.</p>
           </FadeIn>
 
           <div className="grid md:grid-cols-2 gap-5">
             <FadeIn delay={0.1}>
-              <div className="pixel-border-primary bg-[#12121a] p-8 flex flex-col gap-5">
-                <div className="flex items-center gap-4">
-                  <span className="font-pixel text-sm text-[#7c3aed] border border-[#7c3aed] px-3 py-2">ACT I</span>
-                  <span className="font-mono text-lg text-[#c4c4d4]">Idea → First Sale</span>
+              <div className="pixel-border-primary bg-[#12121a] p-5 md:p-8 flex flex-col gap-5">
+                <div className="flex items-center gap-3">
+                  <span className="font-pixel text-[11px] sm:text-sm text-[#7c3aed] border border-[#7c3aed] px-2 sm:px-3 py-1 sm:py-2 shrink-0">ACT I</span>
+                  <span className="font-mono text-sm sm:text-lg text-[#c4c4d4]">Idea → First Sale</span>
                 </div>
                 <div className="flex flex-col gap-3">
                   {ACT1_STEPS.map((s, i) => (
-                    <motion.div key={s.n} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 + i * 0.07 }} className="flex items-center gap-4">
-                      <span className="font-pixel text-sm text-[#7c3aed] w-10 shrink-0">L{s.n}</span>
-                      <span className="font-mono text-base text-[#c4c4d4]">{s.label}</span>
+                    <motion.div key={s.n} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 + i * 0.07 }} className="flex items-center gap-3">
+                      <span className="font-pixel text-[11px] sm:text-sm text-[#7c3aed] w-8 sm:w-10 shrink-0">L{s.n}</span>
+                      <span className="font-mono text-sm text-[#c4c4d4]">{s.label}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -130,16 +130,16 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
             </FadeIn>
 
             <FadeIn delay={0.2}>
-              <div className="pixel-border bg-[#12121a] p-8 flex flex-col gap-5">
-                <div className="flex items-center gap-4">
-                  <span className="font-pixel text-sm text-[#8b8ba8] border border-[#1e1e2e] px-3 py-2">ACT II</span>
-                  <span className="font-mono text-lg text-[#c4c4d4]">First Sale → $10k MRR</span>
+              <div className="pixel-border bg-[#12121a] p-5 md:p-8 flex flex-col gap-5">
+                <div className="flex items-center gap-3">
+                  <span className="font-pixel text-[11px] sm:text-sm text-[#8b8ba8] border border-[#1e1e2e] px-2 sm:px-3 py-1 sm:py-2 shrink-0">ACT II</span>
+                  <span className="font-mono text-sm sm:text-lg text-[#c4c4d4]">First Sale → $10k MRR</span>
                 </div>
                 <div className="flex flex-col gap-3">
                   {ACT2_STEPS.map((s, i) => (
-                    <motion.div key={s.n} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 + i * 0.07 }} className="flex items-center gap-4">
-                      <span className="font-pixel text-sm text-[#8b8ba8] w-10 shrink-0">L{s.n}</span>
-                      <span className="font-mono text-base text-[#8b8ba8]">{s.label}</span>
+                    <motion.div key={s.n} initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 + i * 0.07 }} className="flex items-center gap-3">
+                      <span className="font-pixel text-[11px] sm:text-sm text-[#8b8ba8] w-8 sm:w-10 shrink-0">L{s.n}</span>
+                      <span className="font-mono text-sm text-[#8b8ba8]">{s.label}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -148,9 +148,9 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
           </div>
 
           <FadeIn delay={0.2}>
-            <div className="pixel-border bg-[#12121a] p-8 flex flex-col gap-4">
-              <span className="font-pixel text-base text-[#06b6d4]">✨ AI-POWERED AT EVERY STEP</span>
-              <p className="font-mono text-lg text-[#c4c4d4] leading-relaxed">
+            <div className="pixel-border bg-[#12121a] p-5 md:p-8 flex flex-col gap-4">
+              <span className="font-pixel text-sm text-[#06b6d4]">✨ AI-POWERED AT EVERY STEP</span>
+              <p className="font-mono text-sm md:text-lg text-[#c4c4d4] leading-relaxed">
                 Each level generates tailored content for <span className="text-[#e8e8f0]">your exact product</span> — ICP analysis, community posts, DM templates, landing copy, technical plans, email sequences. Not generic advice. Your product, your context.
               </p>
             </div>
@@ -161,10 +161,10 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
       {/* ── Quote ── */}
       <section className="border-t border-[#1e1e2e] px-6 py-20">
         <div className="max-w-3xl mx-auto flex flex-col gap-10 items-center text-center">
-          <FadeIn><h2 className="font-pixel text-2xl text-[#e8e8f0] leading-loose">Built by a builder</h2></FadeIn>
+          <FadeIn><h2 className="font-pixel text-lg sm:text-2xl text-[#e8e8f0] leading-loose">Built by a builder</h2></FadeIn>
           <FadeIn delay={0.1}>
-            <motion.div whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }} className="pixel-border bg-[#12121a] p-9 flex flex-col gap-6">
-              <p className="font-mono text-lg text-[#c4c4d4] leading-relaxed italic">
+            <motion.div whileHover={{ scale: 1.01 }} transition={{ duration: 0.2 }} className="pixel-border bg-[#12121a] p-5 md:p-9 flex flex-col gap-6">
+              <p className="font-mono text-sm md:text-lg text-[#c4c4d4] leading-relaxed italic">
                 "I built zeroto.sale because I kept failing at the same step — getting my first sale. Every resource told me to build more features. The real answer was to talk to customers first. This tool forces you to do it in the right order."
               </p>
               <div className="flex items-center gap-4">
@@ -182,25 +182,25 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
       {/* ── Pricing ── */}
       <section className="border-t border-[#1e1e2e] px-6 py-20 bg-[#0d0d14]">
         <div className="max-w-2xl mx-auto flex flex-col gap-10 items-center text-center">
-          <FadeIn><h2 className="font-pixel text-2xl text-[#e8e8f0] leading-loose">Simple pricing</h2></FadeIn>
-          <div className="w-full grid grid-cols-2 gap-5">
+          <FadeIn><h2 className="font-pixel text-lg sm:text-2xl text-[#e8e8f0] leading-loose">Simple pricing</h2></FadeIn>
+          <div className="w-full grid grid-cols-2 gap-4">
             {[
               { label: "FREE", price: "$0", sub: "First 3 levels", cls: "pixel-border",         accent: false },
               { label: "PRO",  price: "$9", sub: "or $89 lifetime", cls: "pixel-border-primary", accent: true  },
             ].map((plan, i) => (
               <FadeIn key={plan.label} delay={i * 0.1}>
-                <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }} className={`${plan.cls} bg-[#12121a] p-8 flex flex-col gap-4`}>
-                  <span className={`font-pixel text-sm ${plan.accent ? "text-[#7c3aed]" : "text-[#8b8ba8]"}`}>{plan.label}</span>
-                  <div className="flex items-end gap-2">
-                    <span className="font-pixel text-4xl text-[#e8e8f0]">{plan.price}</span>
-                    {plan.accent && <span className="font-mono text-base text-[#8b8ba8] mb-1">/mo</span>}
+                <motion.div whileHover={{ y: -5 }} transition={{ duration: 0.2 }} className={`${plan.cls} bg-[#12121a] p-4 sm:p-8 flex flex-col gap-3`}>
+                  <span className={`font-pixel text-[11px] sm:text-sm ${plan.accent ? "text-[#7c3aed]" : "text-[#8b8ba8]"}`}>{plan.label}</span>
+                  <div className="flex items-end gap-1">
+                    <span className="font-pixel text-2xl sm:text-4xl text-[#e8e8f0]">{plan.price}</span>
+                    {plan.accent && <span className="font-mono text-sm text-[#8b8ba8] mb-0.5">/mo</span>}
                   </div>
-                  <span className={`font-mono text-base ${plan.accent ? "text-[#fbbf24]" : "text-[#8b8ba8]"}`}>{plan.sub}</span>
+                  <span className={`font-mono text-xs sm:text-base ${plan.accent ? "text-[#fbbf24]" : "text-[#8b8ba8]"}`}>{plan.sub}</span>
                 </motion.div>
               </FadeIn>
             ))}
           </div>
-          <Link href="/pricing" className="font-mono text-lg text-[#7c3aed] hover:underline">See full pricing →</Link>
+          <Link href="/pricing" className="font-mono text-base md:text-lg text-[#7c3aed] hover:underline">See full pricing →</Link>
         </div>
       </section>
 
@@ -208,7 +208,7 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
       <section className="border-t border-[#1e1e2e] px-6 py-24">
         <div className="max-w-xl mx-auto flex flex-col gap-10 items-center text-center">
           <FadeIn>
-            <h2 className="font-pixel text-2xl text-[#e8e8f0] leading-loose">
+            <h2 className="font-pixel text-lg sm:text-2xl text-[#e8e8f0] leading-loose">
               Your first sale<br /><span className="text-[#7c3aed]">is one decision away.</span>
             </h2>
           </FadeIn>
@@ -217,14 +217,14 @@ export function LandingClient({ isLoggedIn }: LandingClientProps) {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[#1e1e2e] px-8 py-10 flex items-center justify-between">
-        <span className="font-pixel text-base text-[#8b8ba8]">zeroto<span className="text-[#7c3aed]">.sale</span></span>
-        <div className="flex gap-8">
-          <Link href="/pricing" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Pricing</Link>
+      <footer className="border-t border-[#1e1e2e] px-6 md:px-8 py-8 md:py-10 flex items-center justify-between gap-4">
+        <span className="font-pixel text-sm md:text-base text-[#8b8ba8]">zeroto<span className="text-[#7c3aed]">.sale</span></span>
+        <div className="flex gap-6 md:gap-8">
+          <Link href="/pricing" className="font-mono text-sm md:text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Pricing</Link>
           {isLoggedIn ? (
-            <Link href="/dashboard" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Dashboard</Link>
+            <Link href="/dashboard" className="font-mono text-sm md:text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Dashboard</Link>
           ) : (
-            <Link href="/login" className="font-mono text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Login</Link>
+            <Link href="/login" className="font-mono text-sm md:text-base text-[#8b8ba8] hover:text-[#e8e8f0]">Login</Link>
           )}
         </div>
       </footer>

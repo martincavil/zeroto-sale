@@ -25,7 +25,7 @@ export function LandingNav({ isLoggedIn }: LandingNavProps) {
             </Link>
           ) : (
             <>
-              <Link href="/login" className="font-mono text-sm text-[#8b8ba8] hover:text-[#e8e8f0] transition-colors">
+              <Link href="/login" className="font-mono text-sm text-[#8b8ba8] hover:text-[#e8e8f0] transition-colors hidden sm:block">
                 Log in
               </Link>
               <Link href="/signup" className="font-pixel text-[13px] px-4 py-2 bg-[#7c3aed] text-white hover:bg-[#6d28d9] transition-colors pixel-border-primary rounded-lg">
